@@ -25,6 +25,7 @@ BX.CustomFieldsModal = function (popupId, params) {
     this.titleBar = this.getTitleBar(params.title);
     this.closeIcon = {right: "15px", top: "10px"};
     this.width = this.getParam(params.width);
+    this.maxWidth = this.getParam(params.maxWidth);
     this.draggable = this.getParam(params.draggable);
     this.resizable = this.getParam(params.resizable);
     this.zIndex = 0;
@@ -51,8 +52,11 @@ BX.CustomFieldsModal.prototype = {
                     closeIcon: this.closeIcon,
                     draggable: this.draggable,
                     resizable: this.resizable,
-                    min_width: this.width,
+                    minWidth: this.width,
+                    maxWidth: this.maxWidth,
                     zIndex: this.zIndex,
+                    contentPadding: 20,
+                    padding: 10,
                     offsetLeft: this.offsetLeft,
                     offsetTop: this.offsetTop,
                     buttons: this.buttons,
@@ -426,6 +430,9 @@ BX.CustomFieldsModal.prototype = {
                     dialogOptions.entities = [
                         {
                             id: params.entity,
+                            options: params.options ?? {},
+                            dynamicLoad: true,
+                            dynamicSearch: true,
                         },
                     ];
                 } else if (params.items) {
@@ -612,15 +619,15 @@ BX.CustomFieldsModal.prototype = {
 
     getTitleBar: function (title) {
         return BX.create({
-            tag: "span",
+            tag: "div",
             props: {
-                className: 'access-title-bar'
+                className: 'custom-fields-modal-title-container'
             },
             children: [
                 BX.create({
                     tag: "span",
                     props: {
-                        className: 'ui-btn ui-btn-link custom-fields-modal-title',
+                        className: 'custom-fields-modal-title',
                     },
                     text: (typeof title === 'string') ? title : '',
                 }),
@@ -864,22 +871,23 @@ BX.CustomFieldsModal.prototype = {
                     return;
                 }
 
+                let multipleNode = container.querySelector('.webform-field-upload-list-multiple');
+
+                let isMultiple = !!multipleNode;
+
                 let fileList = container.querySelectorAll("li");
                 for (let fileItem of fileList) {
                     let fileIdNode = fileItem.querySelector("input[data-bx-role='file-id']");
 
                     if (fileIdNode) {
-                        value.push(fileIdNode.getAttribute("value"));
+                        value.push(Number(fileIdNode.getAttribute("value")));
                     }
                 }
 
                 if (value.length === 0) {
-                    value = "";
+                    value = isMultiple ? [] : false;
                 }
 
-                if (value.length === 1) {
-                    value = value[0];
-                }
                 break;
             }
         }
@@ -940,6 +948,18 @@ BX.CustomFieldsModal.prototype = {
             category.style.paddingLeft = +parentPadding + 10 + "px";
         }
         this.content = doc.querySelector("body").innerHTML;
+
+        let popup = document.querySelector('#' + this.id);
+
+        if (!popup) {
+            return;
+        }
+
+        let popupContent = popup.querySelector('.popup-window-content');
+
+        if (popupContent) {
+            popupContent.style.paddingBottom = '0';
+        }
     },
 
     getContext: function () {
