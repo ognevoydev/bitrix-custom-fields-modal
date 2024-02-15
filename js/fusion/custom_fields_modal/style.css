@@ -9,11 +9,23 @@
 
 .custom-fields-modal-title {
     pointer-events: none;
-    text-transform: none;
+    box-sizing: border-box;
     color: #80868e;
+    display: inline-block;
     font-size: 14px;
-    height: 27px;
-    top: 10px;
+    font-weight: var(--ui-font-weight-bold);
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0 30px 0 4px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.custom-fields-modal-title-container {
+    padding: 11px 0;
+    margin: 0 20px;
+    border-bottom: 1px solid #e8ecee;
+    display: flex;
 }
 
 .custom-fields-form {
@@ -21,6 +33,8 @@
     flex-direction: column;
     gap: 10px;
     min-width: 400px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8ecee;
 }
 
 .custom-field-category {
@@ -102,7 +116,8 @@
     min-height: 39px !important;
 }
 
-.custom-field-empty {
+.custom-field-empty,
+.custom-field-empty .webform-button-upload {
     border-color: #e18282 !important;
 }
 
@@ -113,55 +128,58 @@
     font-size: 15px;
 }
 
-.ui-tag-selector-add-button-caption {
+.custom-fields-form .ui-tag-selector-add-button-caption {
     font-weight: 400;
     color: #525c69;
     border-bottom: none;
     font: 15px/17px var(--ui-font-family-primary,var(--ui-font-family-helvetica));
 }
 
-.ui-tag-selector-add-button-caption:before {
+.custom-fields-form .ui-tag-selector-add-button-caption:before {
     background: url("src/images/add.svg") no-repeat center;
     background-size: contain;
     width: 10px;
     height: 10px;
 }
 
-.ui-tag-selector-outer-container {
+.custom-fields-form .ui-tag-selector-outer-container {
     transition: all .3s ease-in-out;
+    width: fit-content;
+    min-width: 300px;
 }
 
-.main-ui-select:hover,
-.ui-tag-selector-outer-container:hover,
-.ui-entity-editor-field-textarea:hover,
-.ui-entity-editor-field-textarea:focus {
+.custom-fields-form .main-ui-select:hover,
+.custom-fields-form .ui-tag-selector-outer-container:hover,
+.custom-fields-form .ui-entity-editor-field-textarea:hover,
+.custom-fields-form .ui-entity-editor-field-textarea:focus {
     border-color: #64a6f3;
 }
 
-.webform-field-upload {
-    width: 100% !important;
+.custom-fields-form .webform-field-upload {
+    width: 300px !important;
+    background-color: white;
 }
 
-.webform-field-upload:active .webform-small-button {
+.custom-fields-form .webform-field-upload:active .webform-small-button {
     color: #525c69;
 }
 
-.webform-small-button {
+.custom-fields-form .webform-small-button {
     background: transparent !important;
     box-shadow: none;
     border: 1px solid #c6cdd3;
     transition: .22s;
 }
 
-.webform-field-upload:hover .webform-small-button {
+.custom-fields-form .webform-field-upload:hover .webform-small-button {
     border-color: #64a6f3;
 }
 
-.webform-field-upload-list li div.webform-field-item-wrap {
+.custom-fields-form .webform-field-upload-list li div.webform-field-item-wrap {
     align-items: start !important;
 }
 
-.main-ui-select .main-ui-control-value-delete,
-.main-ui-multi-select .main-ui-control-value-delete {
+.custom-fields-form .main-ui-select .main-ui-control-value-delete,
+.custom-fields-form .main-ui-multi-select .main-ui-control-value-delete {
     height: 33px;
 }
