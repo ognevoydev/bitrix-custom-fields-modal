@@ -129,10 +129,19 @@
 }
 
 .custom-fields-form .ui-tag-selector-add-button-caption {
-    font-weight: 400;
-    color: #525c69;
-    border-bottom: none;
-    font: 15px/17px var(--ui-font-family-primary,var(--ui-font-family-helvetica));
+    position: relative;
+    display: inline-block;
+    margin: 0 7px 0 18px;
+    vertical-align: middle;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    line-height: 17px;
+    font-weight: var(--ui-font-weight-bold);
+    color: #2067b0;
+    transition: .1s;
+    cursor: pointer;
+    font-size: 13px;
+    font-family: var(--ui-font-family-primary);
 }
 
 .custom-fields-form .ui-tag-selector-add-button-caption:before {
